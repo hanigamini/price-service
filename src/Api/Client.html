@@ -1,0 +1,34 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Price Updates</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/3.1.7/signalr.min.js"></script>
+</head>
+<body>
+    <h1>Price Updates</h1>
+    <div id="price"></div>
+    <div id="status"></div>
+
+    <script type="text/javascript">
+        const connection = new signalR.HubConnectionBuilder()
+            .withUrl("/amegahub")
+            .build();
+
+        connection.on("ReceivePrice", (instrument, price) => {
+            document.getElementById("price").innerText = `${instrument}: ${price}`;
+        });
+
+        connection.on("SubscriptionSuccess", (instrument) => {
+            document.getElementById("status").innerText = `Subscribed to ${instrument} successfully.`;
+        });
+
+        connection.on("SubscriptionFailed", (message) => {
+            document.getElementById("status").innerText = `Subscription failed: ${message}`;
+        });
+
+        connection.start().then(() => {
+            connection.invoke("SubscribeToPrice", "BTCUSD");
+        }).catch(err => console.error(err));
+    </script>
+</body>
+</html>
