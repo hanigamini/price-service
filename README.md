@@ -9,6 +9,8 @@ you can see two api in this address:<br />
 https://localhost:44339/swagger/index.html
 <br />
 ****************************************************************************************
+TargetFramework is net8.0.
+
 These packages references are used in Api<br />
 FastEndpoints Version="5.31.0"<br />
 FastEndpoints.Swagger Version="5.31.0"<br />
