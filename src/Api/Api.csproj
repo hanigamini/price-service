@@ -16,4 +16,8 @@
     <ProjectReference Include="..\WebSocket\WebSocket.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Include="wwwroot\Client\index.html" />
+  </ItemGroup>
+
 </Project>

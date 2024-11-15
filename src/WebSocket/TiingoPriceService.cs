@@ -27,11 +27,19 @@ namespace WebSocket
 				{
 					Console.WriteLine(message.Text);
 					var data = JObject.Parse(message.Text);
-					var price = data["A"].ToString();
-					//Efficiently manage 1,000+ WebSocket subscribers with SignalR Backplanes such as Redis or SQL Server
-					//Or Load Balancing, distribute webSocket connections across multiple servers using a load balancer.
-					// Broadcasting the message to a group of clients subscribed to this instrument
-					await _hubContext.Clients.Group("BTCUSD").SendAsync("ReceivePrice", "BTCUSD", price); 
+					string price = "";
+					try
+					{
+						price = data["p"].ToString();
+					}
+					catch { }
+					if (!string.IsNullOrEmpty(price))
+					{
+						//Efficiently manage 1,000+ WebSocket subscribers with SignalR Backplanes such as Redis or SQL Server
+						//Or Load Balancing, distribute webSocket connections across multiple servers using a load balancer.
+						// Broadcasting the message to a group of clients subscribed to this instrument
+						await _hubContext.Clients.Group("BTCUSD").SendAsync("ReceivePrice", "BTCUSD", price);
+					}
 				});
 
 				factory.Start().Wait();
