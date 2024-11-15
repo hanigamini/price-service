@@ -1,7 +1,7 @@
 Price Service<br /><br />
 When you run the project, you can see that BTCUSD is subscribed, which constantly changed.<br />
 The result is:<br />
-Price Updates<br />
+**Price Updates**<br />
 BTCUSD: 89663.35000000<br />
 Subscribed to BTCUSD successfully.<br />
 <br />
